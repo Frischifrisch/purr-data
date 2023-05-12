@@ -26,7 +26,7 @@ folders = {
 stdfiles = ["gpl.txt","license.txt","readme.txt","changes.txt","notes.txt","build.txt"]
 
 autoconffiles = [] # ["bootstrap.sh","configure.ac","Makefile.am"]
-    
+
 buildfiles = ["build.sh","build.bat","build","package.txt"]
 
 flexttut_s = [
@@ -49,128 +49,140 @@ flexttut = flexttut_s+flexttut_t
 flextbld = ["buildsys/*"]
 
 modules = {
-    "flext": [stdfiles], 
-    "flext bld pd win": [buildfiles,autoconffiles,flextbld],
-    "flext bld pd lnx": [buildfiles,autoconffiles,flextbld],
-    "flext bld pd osx": [buildfiles,autoconffiles,flextbld],
-    "flext bld max win": [buildfiles,autoconffiles,flextbld],
-    "flext bld max os9": [],
-    "flext bld max osx": [buildfiles,autoconffiles,flextbld],
-    "flext doc": ["Doxyfile"],
-    "flext src": [autoconffiles,"source/*.h","source/*.cpp"],
-
-    "flext-tut": [stdfiles],
-    "flext-tut bld pd win": [buildfiles,autoconffiles],
-    "flext-tut bld pd lnx": [buildfiles,autoconffiles],
-    "flext-tut bld pd osx": [buildfiles,autoconffiles],
-    "flext-tut bld max os9": [x+"/"+x+".mcp" for x in flexttut_s],
-    "flext-tut bld max osx": [buildfiles,autoconffiles],
-    "flext-tut bin pd win": ["pd-msvc/*.dll"],
-    "flext-tut bin pd lnx": ["pd-linux/*.pd_linux"],
-    "flext-tut bin pd osx": ["pd-darwin/*.pd_darwin"],
-    "flext-tut bin max os9": ["max-os9/"+x for x in flexttut_s,"max-os9/"+x+"~" for x in flexttut_s], 
-    "flext-tut bin max osx": ["max-osx/"+x for x in flexttut,"max-osx/"+x+"~" for x in flexttut], 
-    "flext-tut doc pd": ["pd/*.pd"],
-    "flext-tut doc max": ["maxmsp/*"],
-    "flext-tut src": [(x+"/main.cpp",x+"/package.txt") for x in flexttut],
-
-    "vasp": [stdfiles,"mixfft.txt"],
-    "vasp bld pd win": [buildfiles,autoconffiles],
-    "vasp bld pd lnx": [buildfiles,autoconffiles],
-    "vasp bld pd osx": [buildfiles,autoconffiles],
-    "vasp bld max win": [buildfiles,autoconffiles],
-    "vasp bld max osx": [buildfiles,autoconffiles],
-    "vasp bin pd win": ["pd-msvc/release-multi/vasp.dll"],
-    "vasp bin pd osx": ["pd-darwin/release-multi/vasp.pd_darwin"],
-    "vasp bin max osx": ["max-darwin/release-multi/vasp.mxo","max-darwin/vasp.mxd"],
-    "vasp bin max win": ["max-msvc/release-multi/vasp.mxe"],
-    "vasp src": ["source/*.h","source/*.cpp"],
-    "vasp doc pd": ["pd-help/*"],
-#    "vasp doc max": ["max-help/*"],
-    "vasp extra pd": ["pd/*"],
-    "vasp extra max": ["maxmsp/*"],
-
-    "pool": stdfiles,
-    "pool bld pd win": [buildfiles,autoconffiles],
-    "pool bld pd lnx": [buildfiles,autoconffiles],
-    "pool bld pd osx": [buildfiles,autoconffiles],
-    "pool bld max win": [buildfiles,autoconffiles],
-    "pool bld max osx": [buildfiles,autoconffiles],
-    "pool bin pd win": ["pd-msvc/release-single/pool.dll"],
-    "pool bin pd osx": ["pd-darwin/release-single/pool.pd_darwin"],
-    "pool bin max win": ["max-msvc/release-single/pool.mxe"],
-    "pool bin max osx": ["max-darwin/release-single/pool.mxo","max-darwin/pool.mxd"],
-    "pool doc pd": ["pool-help.pd"],
-    "pool doc max": ["pool.help"],
-    "pool extra": ["pool-*.dtd"],
-    "pool src": ["source/*.h","source/*.cpp"],
-
-    "py": stdfiles,
-    "py bld pd win": [buildfiles,autoconffiles],
-    "py bld pd lnx": [buildfiles,autoconffiles],
-    "py bld pd osx": [buildfiles,autoconffiles],
-    "py bld max win": [buildfiles,autoconffiles],
-    "py bld max osx": [buildfiles,autoconffiles],
-    "py bin pd win": ["pd-msvc/release-multi/py.dll"],
-    "py bin max win": ["maxmsp/py-objectmappings.txt","max-msvc/release-multi/py.mxe"],
-    "py bin pd osx": ["pd-darwin/release-multi/py.pd_darwin"],
-    "py bin max osx": ["maxmsp/py-objectmappings.txt","max-darwin/release-multi/py.mxo"],
-    "py doc pd": ["pd/*.pd","scripts/*.py"],
-    "py doc max": ["maxmsp/*.pat","maxmsp/*.mxb","maxmsp/*.mxt","scripts/*.py"],
-    "py src": ["source/*.h","source/*.cpp"],
-
-    "xsample": stdfiles,
-    "xsample bld pd win": [buildfiles,autoconffiles],
-    "xsample bld pd lnx": [buildfiles,autoconffiles],
-    "xsample bld pd osx": [buildfiles,autoconffiles],
-    "xsample bld max win": [buildfiles,autoconffiles],
-    "xsample bld max osx": [buildfiles,autoconffiles],
-    "xsample bin pd win": ["pd-msvc/release-single/xsample.dll"],
-    "xsample bin pd osx": ["pd-darwin/release-single/xsample.pd_darwin"],
-    "xsample bin max osx": ["max-darwin/xsample.mxd"],  # "max-darwin/release-single/xsample.mxo",
-    "xsample bin max win": ["max-msvc/release-single/xsample.mxe"],
-    "xsample doc pd": ["pd/*.pd","pd-ex/*.pd"],
-    "xsample doc max": ["maxmsp/*.help","maxmsp/*.txt"],
-    "xsample src": ["source/*.h","source/*.cpp"],
-    
-    "dynext": stdfiles,
-    "dynext bld pd win": [buildfiles,autoconffiles],
-    "dynext bld pd lnx": [buildfiles,autoconffiles],
-    "dynext bld pd osx": [buildfiles,autoconffiles],
-    "dynext bin pd win": ["pd-msvc/release-single/dyn~.dll"],
-    "dynext bin pd osx": ["pd-darwin/release-single/dyn~.pd_darwin"],
-    "dynext doc pd": ["pd/dyn~-help.pd"],
-    "dynext src": ["src/*.h","src/*.cpp"],
-
-    "wmangle": stdfiles,
-    "wmangle bld pd win": [buildfiles,autoconffiles],
-    "wmangle bld pd osx": [buildfiles,autoconffiles],
-    "wmangle bld max win": [buildfiles,autoconffiles],
-    "wmangle bld max os9": ["wmangle.mcp"],
-    "wmangle bld max osx": [buildfiles,autoconffiles],
-    "wmangle bin pd win": ["pd-msvc/wmangle.dll"],
-    "wmangle bin pd osx": ["pd-darwin/wmangle.pd_darwin"],
-    "wmangle bin max win": ["max-msvc/wmangle.mxe"],
-    "wmangle bin max os9": ["max-os9/wmangle"],
-    "wmangle bin max osx": ["max-osx/wmangle.mxd"],
-    "wmangle doc pd": ["wmangle-help.pd"],
-    "wmangle doc max": ["wmangle.help"],
-    "wmangle src": ["*.h","*.cpp"],
-
-    "vst": stdfiles,
-    "vst bld pd win": [buildfiles,autoconffiles],
-    "vst bld pd osx": [buildfiles,autoconffiles],
-    "vst bin pd win": ["pd-msvc/vst~.dll"],
-    "vst bin pd osx": ["pd-darwin/vst~.pd_darwin"],
-    "vst doc pd": ["vst~-help.pd"],
-    "vst src": ["*.h","*.cpp"],
+	"flext": [stdfiles],
+	"flext bld pd win": [buildfiles, autoconffiles, flextbld],
+	"flext bld pd lnx": [buildfiles, autoconffiles, flextbld],
+	"flext bld pd osx": [buildfiles, autoconffiles, flextbld],
+	"flext bld max win": [buildfiles, autoconffiles, flextbld],
+	"flext bld max os9": [],
+	"flext bld max osx": [buildfiles, autoconffiles, flextbld],
+	"flext doc": ["Doxyfile"],
+	"flext src": [autoconffiles, "source/*.h", "source/*.cpp"],
+	"flext-tut": [stdfiles],
+	"flext-tut bld pd win": [buildfiles, autoconffiles],
+	"flext-tut bld pd lnx": [buildfiles, autoconffiles],
+	"flext-tut bld pd osx": [buildfiles, autoconffiles],
+	"flext-tut bld max os9": [f"{x}/{x}.mcp" for x in flexttut_s],
+	"flext-tut bld max osx": [buildfiles, autoconffiles],
+	"flext-tut bin pd win": ["pd-msvc/*.dll"],
+	"flext-tut bin pd lnx": ["pd-linux/*.pd_linux"],
+	"flext-tut bin pd osx": ["pd-darwin/*.pd_darwin"],
+	"flext-tut bin max os9": [
+		f"max-os9/{x}" for x in flexttut_s for x in flexttut_s
+	],
+	"flext-tut bin max osx": [
+		f"max-osx/{x}" for x in flexttut for x in flexttut
+	],
+	"flext-tut doc pd": ["pd/*.pd"],
+	"flext-tut doc max": ["maxmsp/*"],
+	"flext-tut src": [(f"{x}/main.cpp", f"{x}/package.txt") for x in flexttut],
+	"vasp": [stdfiles, "mixfft.txt"],
+	"vasp bld pd win": [buildfiles, autoconffiles],
+	"vasp bld pd lnx": [buildfiles, autoconffiles],
+	"vasp bld pd osx": [buildfiles, autoconffiles],
+	"vasp bld max win": [buildfiles, autoconffiles],
+	"vasp bld max osx": [buildfiles, autoconffiles],
+	"vasp bin pd win": ["pd-msvc/release-multi/vasp.dll"],
+	"vasp bin pd osx": ["pd-darwin/release-multi/vasp.pd_darwin"],
+	"vasp bin max osx": [
+		"max-darwin/release-multi/vasp.mxo",
+		"max-darwin/vasp.mxd",
+	],
+	"vasp bin max win": ["max-msvc/release-multi/vasp.mxe"],
+	"vasp src": ["source/*.h", "source/*.cpp"],
+	"vasp doc pd": ["pd-help/*"],
+	"vasp extra pd": ["pd/*"],
+	"vasp extra max": ["maxmsp/*"],
+	"pool": stdfiles,
+	"pool bld pd win": [buildfiles, autoconffiles],
+	"pool bld pd lnx": [buildfiles, autoconffiles],
+	"pool bld pd osx": [buildfiles, autoconffiles],
+	"pool bld max win": [buildfiles, autoconffiles],
+	"pool bld max osx": [buildfiles, autoconffiles],
+	"pool bin pd win": ["pd-msvc/release-single/pool.dll"],
+	"pool bin pd osx": ["pd-darwin/release-single/pool.pd_darwin"],
+	"pool bin max win": ["max-msvc/release-single/pool.mxe"],
+	"pool bin max osx": [
+		"max-darwin/release-single/pool.mxo",
+		"max-darwin/pool.mxd",
+	],
+	"pool doc pd": ["pool-help.pd"],
+	"pool doc max": ["pool.help"],
+	"pool extra": ["pool-*.dtd"],
+	"pool src": ["source/*.h", "source/*.cpp"],
+	"py": stdfiles,
+	"py bld pd win": [buildfiles, autoconffiles],
+	"py bld pd lnx": [buildfiles, autoconffiles],
+	"py bld pd osx": [buildfiles, autoconffiles],
+	"py bld max win": [buildfiles, autoconffiles],
+	"py bld max osx": [buildfiles, autoconffiles],
+	"py bin pd win": ["pd-msvc/release-multi/py.dll"],
+	"py bin max win": [
+		"maxmsp/py-objectmappings.txt",
+		"max-msvc/release-multi/py.mxe",
+	],
+	"py bin pd osx": ["pd-darwin/release-multi/py.pd_darwin"],
+	"py bin max osx": [
+		"maxmsp/py-objectmappings.txt",
+		"max-darwin/release-multi/py.mxo",
+	],
+	"py doc pd": ["pd/*.pd", "scripts/*.py"],
+	"py doc max": [
+		"maxmsp/*.pat",
+		"maxmsp/*.mxb",
+		"maxmsp/*.mxt",
+		"scripts/*.py",
+	],
+	"py src": ["source/*.h", "source/*.cpp"],
+	"xsample": stdfiles,
+	"xsample bld pd win": [buildfiles, autoconffiles],
+	"xsample bld pd lnx": [buildfiles, autoconffiles],
+	"xsample bld pd osx": [buildfiles, autoconffiles],
+	"xsample bld max win": [buildfiles, autoconffiles],
+	"xsample bld max osx": [buildfiles, autoconffiles],
+	"xsample bin pd win": ["pd-msvc/release-single/xsample.dll"],
+	"xsample bin pd osx": ["pd-darwin/release-single/xsample.pd_darwin"],
+	"xsample bin max osx": ["max-darwin/xsample.mxd"],
+	"xsample bin max win": ["max-msvc/release-single/xsample.mxe"],
+	"xsample doc pd": ["pd/*.pd", "pd-ex/*.pd"],
+	"xsample doc max": ["maxmsp/*.help", "maxmsp/*.txt"],
+	"xsample src": ["source/*.h", "source/*.cpp"],
+	"dynext": stdfiles,
+	"dynext bld pd win": [buildfiles, autoconffiles],
+	"dynext bld pd lnx": [buildfiles, autoconffiles],
+	"dynext bld pd osx": [buildfiles, autoconffiles],
+	"dynext bin pd win": ["pd-msvc/release-single/dyn~.dll"],
+	"dynext bin pd osx": ["pd-darwin/release-single/dyn~.pd_darwin"],
+	"dynext doc pd": ["pd/dyn~-help.pd"],
+	"dynext src": ["src/*.h", "src/*.cpp"],
+	"wmangle": stdfiles,
+	"wmangle bld pd win": [buildfiles, autoconffiles],
+	"wmangle bld pd osx": [buildfiles, autoconffiles],
+	"wmangle bld max win": [buildfiles, autoconffiles],
+	"wmangle bld max os9": ["wmangle.mcp"],
+	"wmangle bld max osx": [buildfiles, autoconffiles],
+	"wmangle bin pd win": ["pd-msvc/wmangle.dll"],
+	"wmangle bin pd osx": ["pd-darwin/wmangle.pd_darwin"],
+	"wmangle bin max win": ["max-msvc/wmangle.mxe"],
+	"wmangle bin max os9": ["max-os9/wmangle"],
+	"wmangle bin max osx": ["max-osx/wmangle.mxd"],
+	"wmangle doc pd": ["wmangle-help.pd"],
+	"wmangle doc max": ["wmangle.help"],
+	"wmangle src": ["*.h", "*.cpp"],
+	"vst": stdfiles,
+	"vst bld pd win": [buildfiles, autoconffiles],
+	"vst bld pd osx": [buildfiles, autoconffiles],
+	"vst bin pd win": ["pd-msvc/vst~.dll"],
+	"vst bin pd osx": ["pd-darwin/vst~.pd_darwin"],
+	"vst doc pd": ["vst~-help.pd"],
+	"vst src": ["*.h", "*.cpp"],
 }
 
 stddist = { "src": ["bld","src","doc","extra"], "bin": ["bin","doc","extra"] }
 
 dists = {
     "flext": ("flext",stddist["src"]),
-    
+
     "flext-tut": ("flext-tut",stddist["src"]),
 
     "vasp": ("vasp",stddist["src"]),
@@ -253,21 +265,21 @@ def make_osx(dstfile,srclst):
         return ""
 
 def make_os9(dstfile,srclst):
-    try:
-        shutil.rmtree(dstfile)
-    except:
-        pass
-    
-    os.mkdir(dstfile)
-    for s in srclst:
-        dx = dstfile+"/"+os.path.dirname(s)
-        try:
-            os.makedirs(dx)
-        except:
-            pass
-        shutil.copy(s,dx)
-        
-    return dstfile
+	try:
+	    shutil.rmtree(dstfile)
+	except:
+	    pass
+
+	os.mkdir(dstfile)
+	for s in srclst:
+		dx = f"{dstfile}/{os.path.dirname(s)}"
+		try:
+		    os.makedirs(dx)
+		except:
+		    pass
+		shutil.copy(s,dx)
+
+	return dstfile
 
 makes = {
     "win": make_win,

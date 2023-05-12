@@ -7,6 +7,7 @@ Group: 'Export'
 Tooltip: 'Export selected mesh via UDP packets in Raw Triangle Format'
 """
 
+
 __author__ = "Chris McCormick"
 __url__ = ("blender", "mccormick",
 "Author's homepage, http://mccormick.cx/")
@@ -64,7 +65,7 @@ import sys, socket
 # ==============================================================
 # === Write RAW Triangle Format to a UDP socket at localhost ===
 # ==============================================================
-	
+
 # open socket with the file descriptor "file"
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("localhost", 3142))
@@ -89,8 +90,8 @@ for face in mesh.faces:
 			data += ";\n"
 			s.send(data)
 		# start a new buffer
-		data = objname + " "
-	
+		data = f"{objname} "
+
 	if len(face.v) == 3:		# triangle
 		v1, v2, v3 = face.v
 		faceverts = tuple(v1.co) + tuple(v2.co) + tuple(v3.co)
@@ -110,6 +111,6 @@ Blender.Window.DrawProgressBar(1.0, '')  # clear progressbar
 
 s.close()
 
-message = "Successfully sent " + objname
+message = f"Successfully sent {objname}"
 meshtools.print_boxed(message)
 

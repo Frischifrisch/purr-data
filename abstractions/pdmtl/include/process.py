@@ -18,8 +18,8 @@ class sub(pyext._class):
 	def start_1(self,a):
 		global process
 		process = subprocess.Popen(str(a))
-		self._outlet(1, 'opening '+str(a))
+		self._outlet(1, f'opening {str(a)}')
 		
 	def stop_1(self,*a):
 		os.kill(process.pid, signal.SIGTERM)
-		self._outlet(1, 'stopping process '+str(process.pid))
+		self._outlet(1, f'stopping process {str(process.pid)}')

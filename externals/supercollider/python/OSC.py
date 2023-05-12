@@ -159,10 +159,7 @@ def _value(x):
     t = type(x)
     if t == types.FloatType:
         return Float(x)
-    if t == types.IntType or t == types.LongType:
-        return Int(x)
-    # return string representation as default
-    return String(str(x))
+    return Int(x) if t in [types.IntType, types.LongType] else String(str(x))
 
 class Message(Packet):
     """Single OSC message with arguments.

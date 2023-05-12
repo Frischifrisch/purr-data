@@ -31,12 +31,12 @@ class Application(Frame):
 
 	# Create interface stuff
 	def createWidgets(self):                                             
-		self.hi = Button(self)                                         
-		self.hi["text"] = "Hi!"                                       
-		self.hi["fg"]   = "red"                                       
-		self.hi["command"] =  self.say_hi                                                                       
+		self.hi = Button(self)
+		self.hi["text"] = "Hi!"
+		self.hi["fg"]   = "red"
+		self.hi["command"] =  self.say_hi
 		self.hi.pack({"side": "left"})                                
-                                                                    
+
 		self.mcanv = Canvas(self)
 		self.mcanv.pack({"side": "left"})
 		self.mcanv.bind("<Motion>", self.evfunc)
@@ -44,7 +44,7 @@ class Application(Frame):
 		r = self.mcanv.create_rectangle(50,50,200,200)
 		self.mcanv.addtag_withtag('group',r)
 
-		for i in xrange(500):
+		for _ in xrange(500):
 			x = random.uniform(50,200)
 			y = random.uniform(50,200)
 			l = self.mcanv.create_line(x,y,x+1,y)
@@ -56,7 +56,6 @@ class Application(Frame):
 		Frame.__init__(self)
 		self.pack()
 		self.createWidgets()
-		pass
 
 
 # derive class from pyext._class

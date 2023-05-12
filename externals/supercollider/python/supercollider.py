@@ -68,10 +68,8 @@ class Server:
         self.freebuffer=startbuffer;
     def sendMsg(self,command,*args):
         def floatToInt(x):
-            if type(x)==types.FloatType:
-                return int(x)
-            else:
-                return x
+            return int(x) if type(x)==types.FloatType else x
+
         OSC.Message(command,map(floatToInt,args)).sendlocal(self.port)
     def sendgetMsg(self,command,*args):
         apply(self.sendMsg,[command]+list(args))
@@ -91,14 +89,13 @@ class Server:
         self.sendMsg("/d_loadDir",dir)
     def evalSynth(self,synthname):
         tmpname=tempfile.mktemp(".sc")
-        outfile=open(tmpname,"w")
-        outfile.write('SynthDef("'+synthname+'",{')
-        for line in xreadlines.xreadlines(open(synthname+".sc","r")):
-            outfile.write(line)
-        outfile.write('}).send(Server.new(\localhost,NetAddr("'+self.ip+'",'+str(self.port)+')););\n')
-        outfile.close()
-        os.system("sclang "+tmpname)
-        os.system("rm "+tmpname)
+        with open(tmpname,"w") as outfile:
+            outfile.write(f'SynthDef("{synthname}' + '",{')
+            for line in xreadlines.xreadlines(open(f"{synthname}.sc", "r")):
+                outfile.write(line)
+            outfile.write('}).send(Server.new(\localhost,NetAddr("'+self.ip+'",'+str(self.port)+')););\n')
+        os.system(f"sclang {tmpname}")
+        os.system(f"rm {tmpname}")
         
 localServer=Server(1234)
 

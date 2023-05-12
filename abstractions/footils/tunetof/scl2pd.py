@@ -16,9 +16,7 @@ def cent2float(cval):
 
 def ratio2float(rval):
     r = rval.split("/",2)
-    if len(r) < 2:
-        return r[0]
-    return float(r[0]) / float(r[1])
+    return r[0] if len(r) < 2 else float(r[0]) / float(r[1])
 
 
 def convert_scala(scala_filename):

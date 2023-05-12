@@ -6,7 +6,7 @@ class pak(pyext._class):
         self._inlets = n
         self._outlets = 1
         # initialize list
-        self.lst = [0 for x in range(n)]
+        self.lst = [0 for _ in range(n)]
 
     def _anything_(self,n,arg):
         # arg should be type-checked!

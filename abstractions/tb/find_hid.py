@@ -49,16 +49,13 @@ def parse_device(event, rules):
 	pipe.close()
 	return -1
 
-def find (*args):
-	name = ""
-	for token in args:
-		name+=" " + str(token)
-
+def find(*args):
+	name = "".join(f" {str(token)}" for token in args)
 	name = name.strip()
 	rules = name.split('" "')
 	rules = map (lambda x: x.strip('"'), rules)
 
-	ruledict = dict()
+	ruledict = {}
 
 	for rule in rules:
 		setting, value = rule.split('=',1)
@@ -71,5 +68,5 @@ def find (*args):
 		ret = parse_device(event, dict(rules))
 		if ret != -1:
 			return int(ret)
-		
+
 	return -1

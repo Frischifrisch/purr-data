@@ -24,7 +24,7 @@ def parse_arguments(*args):
 	duration = args[0]
 	if duration == 0:
 		return args[1:]
-	
+
 	length = len(args)
 	durations = []
 	breakpoints = []
@@ -34,14 +34,13 @@ def parse_arguments(*args):
 		else:
 			breakpoints.append(args[i])
 	duration_factor = duration / reduce(lambda x,y: x + y, durations)
-	
+
 	durations = map(lambda x: x*duration_factor, durations)
 
 	ret = []
 
 	for i in range(len(durations)):
-		ret.append(breakpoints[i])
-		ret.append(durations[i])
+		ret.extend((breakpoints[i], durations[i]))
 	ret[-2] = ret[0]
 	return ret
 	

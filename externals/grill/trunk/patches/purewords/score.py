@@ -45,11 +45,10 @@ def reset():
 def output():
     '''output score to file'''
     global score,filescore
-    f = open(filescore,"w")
-    # write space delimited words to file
-    for w in score:
-        f.write(w+" ")
-    f.close()
+    with open(filescore,"w") as f:
+            # write space delimited words to file
+        for w in score:
+            f.write(f"{w} ")
 
 def next(index):
     '''append indexed word to score'''

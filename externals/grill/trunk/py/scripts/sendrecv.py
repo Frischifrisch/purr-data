@@ -63,10 +63,10 @@ class ex1(pyext._class):
 		"""Class constructor"""
 
 		# store sender/receiver names
-		if len(args) >= 1: self.recvname = args[0]
+		if args: self.recvname = args[0]
 		if len(args) >= 2: self.sendname = args[1]
 
-                self.bind_1()
+		self.bind_1()
 
         def bind_1(self):
 		# bind functions to receiver names
@@ -151,7 +151,26 @@ class ex3(pyext._class):
 		self._tocanvas("obj",ori.real,ori.imag,"bng",20,250,50,0,"empty","yeah","empty",0,-6,64,8,-24198,-1,-1)
 		for i in xrange(num):
 			l[i] = ori+rad*exp(complex(0,i*2*pi/num))
-			self._tocanvas("obj",l[i].real,l[i].imag,"bng",15,250,50,0,"empty","yeah"+str(i),"empty",0,-6,64,8,0,-1,-1)
+			self._tocanvas(
+				"obj",
+				l[i].real,
+				l[i].imag,
+				"bng",
+				15,
+				250,
+				50,
+				0,
+				"empty",
+				f"yeah{str(i)}",
+				"empty",
+				0,
+				-6,
+				64,
+				8,
+				0,
+				-1,
+				-1,
+			)
 			self._tocanvas("connect",6,0,7+i,0)
 
 		# blink
@@ -160,10 +179,10 @@ class ex3(pyext._class):
 			sleep(1./(i+1))
 
 		# move objects around
-		for i in xrange(200):
+		for _ in xrange(200):
 			ix	= randint(0,num-1)
 			l[ix] = ori+rad*complex(2*random()-1,2*random()-1)
-			self._send("yeah"+str(ix),"pos",l[ix].real,l[ix].imag)
+			self._send(f"yeah{ix}", "pos", l[ix].real, l[ix].imag)
 			sleep(0.02)
 
 		# now delete

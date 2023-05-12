@@ -24,18 +24,16 @@ def find_pdexe(rootdir):
 
 
 def make_netreceive_patch(filename):
-    fd = open(filename, 'w')
-    fd.write('#N canvas 222 130 454 304 10;')
-    fd.write('#X obj 111 83 netreceive ' + str(PORT) + ' 0 old;')
-    fd.write('#X obj 111 103 loadbang;')
-    fd.write('#X obj 111 123 print netreceive_patch;')
+    with open(filename, 'w') as fd:
+        fd.write('#N canvas 222 130 454 304 10;')
+        fd.write(f'#X obj 111 83 netreceive {str(PORT)} 0 old;')
+        fd.write('#X obj 111 103 loadbang;')
+        fd.write('#X obj 111 123 print netreceive_patch;')
 # it would be nice to have this patch tell us when it is closed...
 #    fd.write('#X obj 211 160 tof/destroysend pd;')
 #    fd.write('#X obj 211 160 closebang;')
 #    fd.write('#X obj 211 180 print CLOSE;')
-    fd.write('#X connect 1 0 2 0;')
-#    fd.write('#X connect 3 0 4 0;')
-    fd.close()
+        fd.write('#X connect 1 0 2 0;')
 
 def send_to_socket(message):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -48,15 +46,15 @@ def send_to_socket(message):
         print "socket timed out while sending"
 
 def send_to_pd(message):
-    send_to_socket('; pd ' + message + ';\n')
+    send_to_socket(f'; pd {message}' + ';\n')
 
 def open_patch(filename):
     dir, file = os.path.split(filename)
-    send_to_pd('open ' + file + ' ' + dir)
+    send_to_pd(f'open {file} {dir}')
 
 def close_patch(filename):
     dir, file = os.path.split(filename)
-    send_to_pd('; pd-' + file + ' menuclose')
+    send_to_pd(f'; pd-{file} menuclose')
 
 
 def launch_pd():
@@ -110,11 +108,11 @@ def remove_ignorelines(list):
             pass
     for line in list:
         for pattern in ignorepatterns:
-            m = re.search('.*' + pattern + '.*', line)
+            m = re.search(f'.*{pattern}.*', line)
             while m:
                 try:
                     list.remove(m.string)
-                    m = re.search('.*' + pattern + '.*', line)
+                    m = re.search(f'.*{pattern}.*', line)
                 except ValueError:
                     break
     return list
@@ -128,8 +126,7 @@ logoutput = []
 docdir = os.path.join(pdrootdir, 'doc')
 for root, dirs, files in os.walk(docdir):
     for name in files:
-        m = re.search(".*\.pd$", name)
-        if m:
+        if m := re.search(".*\.pd$", name):
             patchoutput = []
             patch = os.path.join(root, m.string)
             p = launch_pd()
@@ -139,7 +136,7 @@ for root, dirs, files in os.walk(docdir):
                 close_patch(patch)
                 quit_pd(p)
             except socket.error:
-                patchoutput.append('socket.error')                 
+                patchoutput.append('socket.error')
             while True:
                 line = p.stdout.readline()
                 m = re.search('EOF on socket', line)
@@ -151,7 +148,7 @@ for root, dirs, files in os.walk(docdir):
             if len(patchoutput) > 0:
 #                print 'found log messages: ' + patch
                 logoutput.append('\n\n__________________________________________________\n')
-                logoutput.append('loading: ' + patch + '\n')
+                logoutput.append(f'loading: {patch}' + '\n')
 #                logoutput.append('--------------------------------------------------\n')
                 logoutput += patchoutput
 #                for line in patchoutput:
@@ -161,28 +158,26 @@ now = time.localtime(time.time())
 date = time.strftime('20%y-%m-%d', now)
 datestamp = time.strftime('20%y-%m-%d_%H.%M.%S', now)
 
-outputfilename = 'load_every_help_' + socket.gethostname() + '_' + datestamp + '.log'
-outputfile = '/tmp/' + outputfilename
-fd = open(outputfile, 'w')
-fd.writelines(logoutput)
-fd.close()
-
-
+outputfilename = f'load_every_help_{socket.gethostname()}_{datestamp}.log'
+outputfile = f'/tmp/{outputfilename}'
+with open(outputfile, 'w') as fd:
+    fd.writelines(logoutput)
 # make the email report
 fromaddr = 'pd@pdlab.idmi.poly.edu'
 toaddr = 'hans@at.or.at'
-mailoutput = []
-mailoutput.append('From: ' + fromaddr + '\n')
-mailoutput.append('To: ' + toaddr + '\n')
-mailoutput.append('Subject: load_every_help ' + datestamp + '\n\n\n')
-mailoutput.append('______________________________________________________________________\n\n')
-mailoutput.append('Complete log:\n')
-mailoutput.append('http://autobuild.puredata.info/auto-build/' + date + '/'
-                  + outputfilename + '\n')
-
-
+mailoutput = [
+    f'From: {fromaddr}' + '\n',
+    f'To: {toaddr}' + '\n',
+    f'Subject: load_every_help {datestamp}' + '\n\n\n',
+    '______________________________________________________________________\n\n',
+    'Complete log:\n',
+    (
+        f'http://autobuild.puredata.info/auto-build/{date}/{outputfilename}'
+        + '\n'
+    ),
+]
 # upload the log file to the autobuild website
-rsyncfile = 'rsync://128.238.56.50/upload/' + date + '/logs/' + outputfilename
+rsyncfile = f'rsync://128.238.56.50/upload/{date}/logs/{outputfilename}'
 try:
     p = subprocess.Popen(['rsync', '-ax', outputfilename, rsyncfile],
                          stdout=subprocess.PIPE, stderr=subprocess.STDOUT).wait()

@@ -62,10 +62,10 @@ class file(pyext._class):
 			extension = a			
 		
 	def fetch_1(self,*a):
-		files = Walk(str(savepath), 1, '*.'+str(extension))
+		files = Walk(str(savepath), 1, f'*.{str(extension)}')
 		for file in files:
 			self._outlet(1, str(file))
-		filescap = Walk(str(savepath), 1, '*.'+str(extension).upper())
+		filescap = Walk(str(savepath), 1, f'*.{str(extension).upper()}')
 		for filecap in filescap:
 			self._outlet(1, str(filecap))
 		self._outlet(2, 'bang')
